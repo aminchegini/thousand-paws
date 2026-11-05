@@ -1,0 +1,137 @@
+/* Layout: the machine fills the stage on the left; prizes and settings sit in a side panel.
+   On narrow screens the panel drops below the stage. Single dark showroom look. */
+:root {
+  --bg: #0c0820;
+  --panel: #150e2b;
+  --card: #1f1538;
+  --line: #352652;
+  --cream: #fff6e8;
+  --muted: #b9acd3;
+  --pink: #ff3f94;
+  --trim: #ffd23f;
+  --trim-deep: #b38a00;
+  --mint: #2ad4bd;
+  --mint-deep: #139b8a;
+  --drop: #ff3b30;
+  --drop-deep: #b3160e;
+  --plum: #2a0f3a;
+  --led: #ff9f1c;
+  --font-display: "Bungee", "Arial Black", Impact, sans-serif;
+  --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --font-led: "VT323", "Courier New", monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--cream); font-family: var(--font-body); }
+button { font-family: var(--font-body); cursor: pointer; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+button:focus-visible { outline: 3px solid var(--cream); outline-offset: 2px; }
+.srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.viewer { display: grid; grid-template-columns: minmax(0, 1fr) 348px; height: 100dvh; }
+.stageWrap { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+.stage { position: absolute; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; }
+
+.hud { position: absolute; top: 14px; left: max(16px, env(safe-area-inset-left, 0px)); pointer-events: none; display: grid; gap: 2px; }
+.hud h1 { margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 400; letter-spacing: 0.03em; color: var(--trim); }
+.hud p { margin: 0; font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.views {
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 2px; padding: 4px; max-width: calc(100% - 24px);
+  background: rgba(21, 14, 43, 0.86); border: 1px solid var(--line); border-radius: 999px;
+}
+.views button {
+  border: 0; border-radius: 999px; padding: 7px 13px; white-space: nowrap;
+  background: transparent; color: var(--muted); font-size: 13px; font-weight: 800;
+}
+.views button:hover { color: var(--cream); }
+.views button[aria-pressed="true"] { background: var(--mint); color: var(--plum); }
+
+.side {
+  min-height: 0; overflow-y: auto; display: grid; gap: 14px; align-content: start;
+  padding-block: 16px; padding-left: 16px; padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: var(--panel); border-left: 1px solid var(--line);
+}
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 12px; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stats > div { display: grid; justify-items: center; gap: 2px; background: #110a1e; border-radius: 10px; padding: 7px 4px 4px; box-shadow: inset 0 0 0 1px var(--line); }
+.stats .lbl { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.stats .val { font-family: var(--font-led); font-size: 30px; line-height: 1; color: var(--led); text-shadow: 0 0 8px rgba(255, 159, 28, 0.6); font-variant-numeric: tabular-nums; }
+.capStatus { margin: 0; font-size: 14px; font-weight: 700; min-height: 1.4em; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { border: 0; border-radius: 999px; padding: 9px 16px; font-size: 14px; font-weight: 800; }
+.pill.pay { background: var(--trim); color: var(--plum); box-shadow: 0 3px 0 var(--trim-deep); }
+.pill.open { background: var(--mint); color: var(--plum); box-shadow: 0 3px 0 var(--mint-deep); }
+.pill:active:not(:disabled) { transform: translateY(2px); box-shadow: none; }
+.pill:disabled { opacity: 0.4; cursor: default; }
+.pill.toggle { background: transparent; color: var(--cream); box-shadow: inset 0 0 0 2px var(--line); }
+.pill.toggle[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--mint); color: var(--mint); }
+
+.cardTitle { margin: 0; font-family: var(--font-display); font-size: 14px; font-weight: 400; letter-spacing: 0.04em; }
+.skins { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.skin {
+  display: grid; justify-items: start; gap: 3px; padding: 9px 10px; min-width: 0; text-align: left;
+  background: transparent; color: var(--cream); border: 0; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line);
+}
+.skin:hover { box-shadow: inset 0 0 0 1px var(--muted); }
+.skin[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--mint); }
+.dots { display: flex; gap: 3px; margin-bottom: 3px; }
+.dots i { width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28); }
+.skinName { font-size: 13px; font-weight: 800; line-height: 1.2; }
+.skinTaste { font-size: 11px; font-weight: 700; color: var(--muted); }
+.skinFinish { margin: 0; font-size: 13px; color: var(--muted); }
+
+.help ul { margin: 0; padding-left: 18px; display: grid; gap: 5px; font-size: 13px; color: var(--muted); }
+
+/* touch controls: only where there is no keyboard and mouse to reach the machine's own controls */
+.touchDeck { display: none; align-items: center; justify-content: center; gap: 18px; }
+.dpad { display: grid; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 56px); grid-template-areas: ". up ." "left down right"; gap: 6px; }
+.dpad .key:nth-child(1) { grid-area: up; }
+.dpad .key:nth-child(2) { grid-area: left; }
+.dpad .key:nth-child(3) { grid-area: down; }
+.dpad .key:nth-child(4) { grid-area: right; }
+.key {
+  width: 56px; height: 56px; border-radius: 50%; border: 0; font-size: 18px; font-weight: 800; color: var(--plum);
+  background: radial-gradient(circle at 35% 30%, #8cf3e2, var(--mint) 55%, var(--mint-deep));
+  box-shadow: 0 5px 0 var(--mint-deep); touch-action: none;
+}
+.key.is-down, .key:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--mint-deep); }
+.drop {
+  width: 92px; height: 92px; border-radius: 50%; border: 0; color: #fff; font-family: var(--font-display); font-size: 18px;
+  background: radial-gradient(circle at 35% 30%, #ff9d94, var(--drop) 50%, var(--drop-deep));
+  box-shadow: 0 7px 0 var(--drop-deep); touch-action: manipulation;
+}
+.drop:active { transform: translateY(6px); box-shadow: 0 1px 0 var(--drop-deep); }
+.drop.busy { filter: saturate(0.45) brightness(0.75); cursor: default; }
+@media (pointer: coarse) { .touchDeck { display: flex; } }
+
+/* prize shelf */
+.shelf { background: var(--cream); color: var(--plum); border-radius: 14px; padding: 14px 14px 16px; }
+.shelfHead { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 2px 12px; margin: 0 0 10px; }
+.shelf h2 { font-family: var(--font-display); font-size: 16px; font-weight: 400; margin: 0; letter-spacing: 0.04em; }
+.tally { margin: 0; font-size: 12px; font-weight: 800; opacity: 0.75; font-variant-numeric: tabular-nums; }
+/* Toys stand in rows of fixed height; a wooden plank is painted under each row (stride = row height + row gap). */
+.shelfRow {
+  display: flex; flex-wrap: wrap; align-items: flex-end; row-gap: 14px; min-height: 106px;
+  padding: 4px 12px 14px;   /* top padding of 4px keeps the plank tile repeating upward out of view */
+  border-radius: 10px;
+  background:
+    linear-gradient(to bottom, transparent 0 88px, #c88b52 88px 94px, #94602f 94px 98px, transparent 98px) 0 4px / 100% 102px repeat-y,
+    #f3e2cf;
+  box-shadow: inset 0 3px 0 rgba(42, 15, 58, 0.08);
+}
+.toy { height: 88px; display: flex; align-items: flex-end; }
+.toy + .toy { margin-left: -6px; }
+.thumb { display: block; filter: drop-shadow(0 2px 0 rgba(42, 15, 58, 0.22)); }
+.empty { margin: 0; font-size: 14px; opacity: 0.75; padding: 4px 6px; align-self: flex-end; }
+
+@media (max-width: 899px) {
+  .viewer { grid-template-columns: minmax(0, 1fr); height: auto; }
+  .stageWrap { height: min(74dvh, 170vw); }
+  .side { border-left: 0; border-top: 1px solid var(--line); overflow: visible; }
+  .touchDeck { display: flex; }
+  .views button { padding: 7px 10px; font-size: 12px; }
+}
