@@ -13,8 +13,8 @@
     "tokens:check": "node scripts/token-lint.mjs --enforce"
   },
   "devDependencies": {
-    "@paws/codemod": "https://github.com/aminchegini/pawprint-tokens/releases/download/v0.1.0/paws-codemod-0.1.0.tgz",
-    "@paws/tokens": "https://github.com/aminchegini/pawprint-tokens/releases/download/v0.1.0/paws-tokens-0.1.0.tgz",
+    "@paws/codemod": "https://github.com/aminchegini/pawprint-tokens/releases/download/v0.2.0/paws-codemod-0.2.0.tgz",
+    "@paws/tokens": "https://github.com/aminchegini/pawprint-tokens/releases/download/v0.2.0/paws-tokens-0.2.0.tgz",
     "@playwright/test": "^1.64.1"
   }
 }
