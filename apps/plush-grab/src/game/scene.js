@@ -1,14 +1,11 @@
 // Three.js meshes for the gantry/claw and the plush toys.
 
 import * as THREE from 'three';
+import { box, sphere, std, disposeObject } from '@paws/arcade-kit';
 import { HALF_W, RAIL_Y, PRONG } from './sim.js';
 
 const INK = 0x2a0f3a;
 const UP = new THREE.Vector3(0, 1, 0);
-
-function box(w, h, d, mat) { return new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat); }
-function sphere(r, mat, seg = 16) { return new THREE.Mesh(new THREE.SphereGeometry(r, seg, Math.max(8, Math.floor(seg * 0.75))), mat); }
-function std(color, extra = {}) { return new THREE.MeshStandardMaterial({ color, roughness: 0.9, ...extra }); }
 
 export function makeClaw() {
   const group = new THREE.Group();
@@ -137,14 +134,4 @@ export function createPlushFactory() {
   };
 }
 
-export function disposeObject(o) {
-  o.traverse((c) => {
-    if (c.geometry) c.geometry.dispose();
-    if (c.material) {
-      for (const m of Array.isArray(c.material) ? c.material : [c.material]) {
-        if (m.map) m.map.dispose();
-        m.dispose();
-      }
-    }
-  });
-}
+export { disposeObject };

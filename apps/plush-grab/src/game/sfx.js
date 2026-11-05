@@ -1,6 +1,9 @@
 // Synthesised arcade audio: sound effects, a motor hum while the claw moves,
-// and a looping chiptune tune. The AudioContext is created lazily on the first
-// user gesture (unlock), because browsers block audio before any interaction.
+// and a looping chiptune tune, all on the shared tone engine. Its AudioContext is
+// created lazily on the first user gesture (unlock), because browsers block audio
+// before any interaction.
+
+import { createToneEngine } from '@paws/arcade-kit';
 
 const TEMPO = 132;
 const SIXTEENTH = 60 / TEMPO / 4;
@@ -14,8 +17,8 @@ const BASS = [48, 48, 43, 43, 53, 53, 55, 55, 48, 48, 52, 52, 53, 53, 55, 55];
 const midiHz = (n) => 440 * Math.pow(2, (n - 69) / 12);
 
 export function createSfx() {
-  let ac = null;
-  let muted = false;
+  const engine = createToneEngine();
+  const { tone } = engine;
   let musicWanted = true;
   let motorGain = null;
   let motorOn = false;
@@ -25,35 +28,20 @@ export function createSfx() {
   let step = 0;
 
   function unlock() {
-    if (!ac) {
-      try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch { ac = null; }
-    }
-    if (ac && ac.state === 'suspended') ac.resume().catch(() => {});
+    const ac = engine.unlock();
     if (ac && musicWanted) startMusic();
     return ac;
   }
 
-  function tone(f, t0, dur, type, vol, slide, force) {
-    if (!ac || (muted && !force)) return;
-    const o = ac.createOscillator(), g = ac.createGain(), t = ac.currentTime + t0;
-    o.type = type;
-    o.frequency.setValueAtTime(f, t);
-    if (slide) o.frequency.exponentialRampToValueAtTime(slide, t + dur);
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(vol, t + 0.012);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g).connect(ac.destination);
-    o.start(t);
-    o.stop(t + dur + 0.05);
-  }
-
   // ---- motor hum ----
   function setMotorGain() {
+    const ac = engine.context;
     if (!motorGain || !ac) return;
     motorGain.gain.cancelScheduledValues(ac.currentTime);
-    motorGain.gain.setTargetAtTime(motorOn && !muted ? 0.05 : 0, ac.currentTime, 0.04);
+    motorGain.gain.setTargetAtTime(motorOn && !engine.muted ? 0.05 : 0, ac.currentTime, 0.04);
   }
   function motor(on) {
+    const ac = engine.context;
     if (!ac) return;
     if (!motorGain) {
       const o1 = ac.createOscillator(), o2 = ac.createOscillator(), f = ac.createBiquadFilter();
@@ -69,10 +57,11 @@ export function createSfx() {
 
   // ---- music loop (lookahead scheduler) ----
   function musicTick() {
+    const ac = engine.context;
     if (!ac || !musicRunning) return;
     while (nextNoteTime < ac.currentTime + 0.25) {
       const offset = nextNoteTime - ac.currentTime;
-      if (musicWanted && !muted) {
+      if (musicWanted && !engine.muted) {
         const m = MELODY[step % MELODY.length];
         if (m) tone(midiHz(m), offset, SIXTEENTH * 0.85, 'square', 0.045);
         if (step % 2 === 0) tone(midiHz(BASS[(step / 2) % BASS.length]), offset, SIXTEENTH * 1.7, 'triangle', 0.07);
@@ -84,6 +73,7 @@ export function createSfx() {
     musicTimer = setTimeout(musicTick, 90);
   }
   function startMusic() {
+    const ac = engine.context;
     if (!ac || musicRunning) return;
     musicRunning = true;
     nextNoteTime = ac.currentTime + 0.1;
@@ -120,13 +110,13 @@ export function createSfx() {
       [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.11, 0.18, 'square', 0.14));
       tone(1319, 0.44, 0.45, 'square', 0.14);
     },
-    setMuted(m) { muted = !!m; setMotorGain(); },
-    setMusic(on) { musicWanted = !!on; if (musicWanted && ac) startMusic(); },
-    get muted() { return muted; },
+    setMuted(m) { engine.setMuted(m); setMotorGain(); },
+    setMusic(on) { musicWanted = !!on; if (musicWanted) startMusic(); },
+    get muted() { return engine.muted; },
     get music() { return musicWanted; },
     destroy() {
       stopMusic();
-      if (ac) { ac.close().catch(() => {}); ac = null; }
+      engine.destroy();
       motorGain = null; motorOn = false;
     },
   };
