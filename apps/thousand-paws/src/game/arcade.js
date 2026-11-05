@@ -179,6 +179,7 @@ export function buildArcade(scene, PALETTE) {
     hitTargets,
     display: cabinet.display,
     pressButton() { press = 1; },
+    resetClock() { clock = 0; },
     // Removes the model, so the arcade can be rebuilt in another skin.
     dispose() { scene.remove(root); disposeObject(root); },
     setUnlocked(ids) {

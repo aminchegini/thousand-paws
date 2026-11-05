@@ -213,6 +213,7 @@ export function createPawsGame({ stage }, handlers = {}) {
   // ---- loop ----
   let raf = 0;
   let alive = true;
+  let frozen = false;
   let last = performance.now();
   function tick(dt, draw = true) {
     cooldown = Math.max(0, cooldown - dt);
@@ -231,7 +232,7 @@ export function createPawsGame({ stage }, handlers = {}) {
     sim.drawn();   // from here on a press is judged against the number just drawn
   }
   function frame(now) {
-    if (!alive) return;
+    if (!alive || frozen) return;
     tick(Math.min(1 / 30, Math.max(0, (now - last) / 1000))); last = now;
     raf = requestAnimationFrame(frame);
   }
@@ -257,6 +258,9 @@ export function createPawsGame({ stage }, handlers = {}) {
         settle();
         return sim.getState();
       },
+      // Stops the loop and draws one frame at clock zero, so two screenshots of the
+      // same state can be compared pixel for pixel.
+      freeze() { frozen = true; cancelAnimationFrame(raf); arcade.resetClock(); tick(0); },
       state() { return { ...sim.getState(), progress }; },
       stats() { const { calls, triangles } = renderer.info.render; return { calls, triangles }; },
       // Screen position of the button, for driving it with pointer events in tests.
