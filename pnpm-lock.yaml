@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@paws/codemod':
-        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-codemod-0.4.0.tgz
-        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-codemod-0.4.0.tgz
+        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-codemod-0.5.0.tgz
+        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-codemod-0.5.0.tgz
       '@paws/tokens':
-        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-tokens-0.4.0.tgz
-        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-tokens-0.4.0.tgz
+        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-tokens-0.5.0.tgz
+        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-tokens-0.5.0.tgz
       '@playwright/test':
         specifier: ^1.64.1
         version: 1.64.1
@@ -30,11 +30,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/arcade-kit
       '@paws/tokens':
-        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-tokens-0.4.0.tgz
-        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-tokens-0.4.0.tgz
+        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-tokens-0.5.0.tgz
+        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-tokens-0.5.0.tgz
       '@paws/ui':
-        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-ui-0.4.0.tgz
-        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-ui-0.4.0.tgz(react@19.3.1)
+        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-ui-0.5.0.tgz
+        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-ui-0.5.0.tgz(react@19.3.1)
       react:
         specifier: ^19.1.0
         version: 19.3.1
@@ -324,18 +324,18 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@paws/codemod@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-codemod-0.4.0.tgz':
-    resolution: {tarball: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-codemod-0.4.0.tgz}
-    version: 0.4.0
+  '@paws/codemod@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-codemod-0.5.0.tgz':
+    resolution: {tarball: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-codemod-0.5.0.tgz}
+    version: 0.5.0
     hasBin: true
 
-  '@paws/tokens@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-tokens-0.4.0.tgz':
-    resolution: {tarball: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-tokens-0.4.0.tgz}
-    version: 0.4.0
+  '@paws/tokens@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-tokens-0.5.0.tgz':
+    resolution: {tarball: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-tokens-0.5.0.tgz}
+    version: 0.5.0
 
-  '@paws/ui@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-ui-0.4.0.tgz':
-    resolution: {tarball: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-ui-0.4.0.tgz}
-    version: 0.4.0
+  '@paws/ui@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-ui-0.5.0.tgz':
+    resolution: {tarball: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-ui-0.5.0.tgz}
+    version: 0.5.0
     peerDependencies:
       react: ^19.0.0
 
@@ -1266,15 +1266,15 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@paws/codemod@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-codemod-0.4.0.tgz':
+  '@paws/codemod@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-codemod-0.5.0.tgz':
     dependencies:
       postcss: 8.5.32
       postcss-value-parser: 4.2.0
       ts-morph: 28.0.0
 
-  '@paws/tokens@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-tokens-0.4.0.tgz': {}
+  '@paws/tokens@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-tokens-0.5.0.tgz': {}
 
-  '@paws/ui@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-ui-0.4.0.tgz(react@19.3.1)':
+  '@paws/ui@https://github.com/aminchegini/pawprint-tokens/releases/download/v0.5.0/paws-ui-0.5.0.tgz(react@19.3.1)':
     dependencies:
       react: 19.3.1
 
