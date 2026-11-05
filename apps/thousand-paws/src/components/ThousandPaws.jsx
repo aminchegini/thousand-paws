@@ -8,7 +8,7 @@ import BearShelf from './BearShelf.jsx';
 
 const SOUND_KEY = 'thousandpaws-sound';
 const SKIN_KEY = 'thousandpaws-skin';
-const SWATCH = ['color.cabinet.body', 'color.cabinet.trim', 'color.accent.highlight'];
+const SWATCH = ['color.cabinet.body', 'color.cabinet.trim', 'color.accent.glow'];
 const VIEWS = [
   ['play', 'Arcade'],
   ['counter', 'Counter'],
@@ -152,7 +152,7 @@ export default function ThousandPaws() {
             </div>
             <div>
               <dt className="text-[11px] font-bold tracking-wider text-text-muted uppercase">Wins</dt>
-              <dd className="m-0 font-display text-lg text-accent-highlight tabular-nums">{progress.wins}</dd>
+              <dd className="m-0 font-display text-lg text-accent-glow tabular-nums">{progress.wins}</dd>
             </div>
             <div>
               <dt className="text-[11px] font-bold tracking-wider text-text-muted uppercase">Closest miss</dt>
@@ -173,7 +173,7 @@ export default function ThousandPaws() {
                 data-finish={s.id}
                 aria-pressed={skin === s.id}
                 onClick={() => setSkin(s.id)}
-                className="flex items-center gap-2 rounded-md border border-border-default bg-surface-panel px-2.5 py-2 text-left text-sm font-extrabold text-text-default aria-pressed:border-accent-highlight"
+                className="flex items-center gap-2 rounded-md border border-border-default bg-surface-panel px-2.5 py-2 text-left text-sm font-extrabold text-text-default aria-pressed:border-accent-glow"
               >
                 <span className="flex gap-1" aria-hidden="true">
                   {SWATCH.map((name) => <i key={name} className="block size-3 rounded-pill" style={{ background: tokens[s.id][name] }} />)}
