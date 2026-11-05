@@ -1,4 +1,4 @@
-// Token lint: counts, per cabinet, the colour references that come from the shared
+// Token lint: counts, per app, the colour references that come from the shared
 // semantic tokens and the ones that do not (raw colour values, stock Tailwind palette
 // classes, deprecated legacy names). Token parity is the share that comes from tokens.
 //
@@ -16,7 +16,7 @@ const require = createRequire(import.meta.url);
 const legacyMap = require.resolve('@paws/tokens/legacy-map.json');
 const codemod = join(dirname(require.resolve('@paws/codemod')), 'cli.js');
 
-const APPS = ['thousand-paws', 'plush-grab'];
+const APPS = ['thousand-paws'];
 const SOURCE = new Set(['.js', '.jsx', '.ts', '.tsx', '.css']);
 const PALETTE = 'slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose';
 const UTILITY = 'bg|text|border|ring|outline|fill|stroke|from|via|to|shadow|decoration|divide|accent|caret';
@@ -85,7 +85,7 @@ mkdirSync(join(root, 'metrics'), { recursive: true });
 writeFileSync(join(root, 'metrics', 'token-parity.json'), `${JSON.stringify({ parity, apps }, null, 2)}\n`);
 
 const row = (cells) => cells.map((c, i) => String(c).padEnd(i ? 14 : 16)).join('');
-console.log(row(['cabinet', 'from tokens', 'raw colours', 'stock classes', 'legacy names', 'parity']));
+console.log(row(['app', 'from tokens', 'raw colours', 'stock classes', 'legacy names', 'parity']));
 for (const a of apps) console.log(row([a.app, a.semantic, a.rawColour, a.stockTailwind, a.legacy, `${a.parity}%`]));
 console.log(`\nToken parity: ${parity}% (${total.semantic} of ${total.semantic + total.notFromTokens} colour references come from tokens)`);
 

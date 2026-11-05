@@ -76,4 +76,4 @@ The migration to shared tokens happens in later pull requests. To see how far it
 pnpm tokens:report
 ```
 
-That prints, per cabinet, how many colour references come from the shared tokens and how many are still raw colour values, stock Tailwind classes or deprecated legacy names, and writes the result to `metrics/token-parity.json`. `pnpm tokens:check` does the same and fails while anything is left.
+That prints, for Thousand Paws, how many colour references come from the shared tokens and how many are still raw colour values, stock Tailwind classes or deprecated legacy names, and writes the result to `metrics/token-parity.json`. `pnpm tokens:check` does the same and fails while anything is left.
