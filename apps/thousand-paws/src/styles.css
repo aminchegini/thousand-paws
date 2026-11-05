@@ -5,6 +5,7 @@
 @import "tailwindcss";
 @import "@paws/tokens/theme.css";
 @import "@paws/tokens/tokens.css";
+@import "@paws/ui/styles.css";
 
 @theme {
   --font-display: "Bungee", "Arial Black", Impact, sans-serif;
@@ -17,3 +18,16 @@ html, body, #root { height: 100%; }
 body { margin: 0; font-family: var(--font-body); }
 button { font-family: var(--font-body); cursor: pointer; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
 button:focus-visible { outline: 3px solid var(--color-text-default); outline-offset: 2px; }
+
+/* The one big control: the shared Button, scaled up through its own variables. */
+.press-button {
+  --button-font-size: var(--font-size-xl);
+  --button-padding-block: var(--space-lg);
+  --button-radius: var(--radius-lg);
+  --button-press-depth: var(--space-xs);
+  flex: none;
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
