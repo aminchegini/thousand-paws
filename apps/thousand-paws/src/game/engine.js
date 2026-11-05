@@ -19,7 +19,7 @@ const COOLDOWN = 0.7;       // a press this soon after a result is ignored, so a
 
 // Camera presets: what to centre on, from which direction, and how much must fit in frame.
 const VIEWS = {
-  play: { target: [0.3, 7.5, 0], yaw: 0.05, pitch: 0.14, fit: [24, 18] },
+  play: { target: [0.3, 8.4, 0], yaw: 0.05, pitch: 0.14, fit: [24, 22] },   // headroom for the page title
   counter: { target: [CAB_X, 9.4, 0.5], yaw: -0.12, pitch: 0.16, fit: [9, 12] },
   shelf: { target: [SHELF_X, 6.6, 0], yaw: 0.18, pitch: 0.08, fit: [12.5, 14.5] },
 };

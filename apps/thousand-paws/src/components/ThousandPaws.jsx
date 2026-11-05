@@ -101,7 +101,7 @@ export default function ThousandPaws() {
         />
         <header className="pointer-events-none absolute top-3.5 left-4 grid gap-0.5">
           <h1 className="m-0 font-display text-xl font-normal tracking-wide text-amber-300">Thousand Paws</h1>
-          <p className="m-0 text-xs font-bold text-violet-300">Stop the counter on exactly 1000. Win a bear.</p>
+          <p className="m-0 max-w-44 text-xs font-bold text-violet-300">Stop the counter on exactly 1000. Win a bear.</p>
         </header>
         <div className="absolute bottom-3.5 left-1/2 flex max-w-[calc(100%-24px)] -translate-x-1/2 gap-0.5 rounded-full border border-violet-800 bg-violet-950/85 p-1" role="group" aria-label="Camera view">
           {VIEWS.map(([id, name]) => (
