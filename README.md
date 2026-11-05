@@ -2,6 +2,41 @@
 
 A small 3D arcade game built with React, Vite and Three.js. A counter races upward, speeding up and slowing down at random. Press the big red button when it reads exactly 1000 and one of the eight teddy bears on the shelf beside you unlocks.
 
+**[Play it](https://thousand-paws.vercel.app)**
+
+It is also a working example of an automated loop between Figma and code: every colour, radius and type size comes from a [Figma library](https://www.figma.com/design/FTrMG6oKwU8Arzt3QEru59/) through [pawprint-tokens](https://github.com/aminchegini/pawprint-tokens), and CI rejects anything that drifts.
+
+```mermaid
+flowchart LR
+  A[Figma library<br/>variables and components] -->|export| B[figma.tokens.json]
+  B -->|Style Dictionary| C[tokens.css, theme.css, tokens.ts]
+  C --> D["@paws/ui<br/>Button, Card, Input, Badge"]
+  C --> E[Thousand Paws<br/>page and 3D scene]
+  D --> E
+  E -->|same components and variables| F[Figma screens]
+  A --> F
+  G{{CI gates}} -.->|rebuild and diff| C
+  G -.->|token lint| E
+  G -.->|pixel proof| E
+```
+
+## What the pipeline has proved
+
+Each row links to the pull request or run where it happened.
+
+| Claim | Evidence |
+|---|---|
+| A live app moved onto tokens | [#3](https://github.com/aminchegini/thousand-paws/pull/3): 0% to 100% token parity, 117 stray colour references gone |
+| One component set in code and Figma | [#8](https://github.com/aminchegini/thousand-paws/pull/8): the side panel uses the same Button, Card and Badge as the library |
+| A rename across Figma and code moves no pixels | [#6](https://github.com/aminchegini/thousand-paws/pull/6): CI measured 0 of 4,096,000 pixels changed across the four finishes |
+| Unused aliases can be retired safely | [pawprint-tokens #2](https://github.com/aminchegini/pawprint-tokens/pull/2): removed once the usage counter read zero |
+| A hard-coded colour is rejected | [#7](https://github.com/aminchegini/thousand-paws/pull/7), closed on purpose: Token lint failed, even though the hex matched the token |
+| A hand-edited token is rejected | [pawprint-tokens #4](https://github.com/aminchegini/pawprint-tokens/pull/4), closed on purpose: Token drift failed |
+
+Current token parity is in [`metrics/token-parity.json`](metrics/token-parity.json).
+
+The four cabinet finishes are the modes of the library's Semantic variable collection. Pick one in the game, or switch the mode on a frame in the [screens file](https://www.figma.com/design/DMkH0TywNmT0iRp2PnhWOn/), and the same tokens drive both.
+
 ## Licence
 
 [MIT](LICENSE). Use it for anything, including commercial projects, as long as you keep the copyright and licence notice. The token pipeline it is paired with, [pawprint-tokens](https://github.com/aminchegini/pawprint-tokens), is MIT licensed too.
