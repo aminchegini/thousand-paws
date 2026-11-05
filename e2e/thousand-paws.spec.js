@@ -45,3 +45,15 @@ test('the red button on the cabinet and the Space key both work', async ({ page 
   await page.keyboard.press('Space');
   await expect(page.locator(result)).toContainText('over.');
 });
+
+test('a cabinet finish recolours the page and survives a reload', async ({ page }) => {
+  const pageColour = () => page.evaluate(() => getComputedStyle(document.querySelector('main')).backgroundColor);
+  const candy = await pageColour();
+  await page.click('[data-finish="neon"]');
+  await expect(page.locator('html')).toHaveAttribute('data-skin', 'neon');
+  expect(await pageColour()).not.toBe(candy);
+
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-skin', 'neon');
+  await expect(page.locator('[data-finish="neon"]')).toHaveAttribute('aria-pressed', 'true');
+});

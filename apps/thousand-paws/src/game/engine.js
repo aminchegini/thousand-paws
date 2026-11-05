@@ -11,7 +11,7 @@ import { createSfx } from './sfx.js';
 import { buildArcade, CAB_X, SHELF_X } from './arcade.js';
 import { loadProgress, saveProgress, clearProgress, nextBear } from './progress.js';
 import { END_ZONE, TARGET, pad4 } from './spec.js';
-import { PALETTE } from './palette.js';
+import { paletteFor, skinOf } from './palette.js';
 
 const FOV = 28;
 const TICK_GAP = 0.06;      // seconds between counter ticks at most, so a sprint does not buzz
@@ -36,9 +36,10 @@ export function createPawsGame({ stage }, handlers = {}) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+  let palette = paletteFor(handlers.initialSkin);
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(PALETTE.room);
-  scene.fog = new THREE.Fog(PALETTE.room, 70, 170);
+  scene.background = new THREE.Color(palette.room);
+  scene.fog = new THREE.Fog(palette.room, 70, 170);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environment = envTex;
@@ -46,11 +47,12 @@ export function createPawsGame({ stage }, handlers = {}) {
 
   const camera = new THREE.PerspectiveCamera(FOV, 4 / 3, 0.5, 400);
 
-  scene.add(new THREE.HemisphereLight(0xfff4fa, 0x4a3a6a, 0.75));
-  const key = new THREE.DirectionalLight(0xffffff, 1.1);
+  const hemi = new THREE.HemisphereLight(palette.light, palette.lightGround, 0.75);
+  scene.add(hemi);
+  const key = new THREE.DirectionalLight(palette.light, 1.1);
   key.position.set(9, 12, 26);
   scene.add(key);
-  const sun = new THREE.DirectionalLight(0xffffff, 1.3);
+  const sun = new THREE.DirectionalLight(palette.light, 1.3);
   sun.position.set(3, 24, 12);
   sun.target.position.set(0, 6, 0);
   sun.castShadow = true;
@@ -59,7 +61,15 @@ export function createPawsGame({ stage }, handlers = {}) {
   sun.shadow.bias = -0.0004;
   scene.add(sun, sun.target);
 
-  const arcade = buildArcade(scene);
+  let arcade = buildArcade(scene, palette);
+
+  // What the LED display shows, kept here so a rebuilt arcade can show it again.
+  const led = { main: pad4(0), sub: 'PRESS TO START', blink: false };
+  function show(main, blink = false, sub = led.sub) {
+    Object.assign(led, { main, sub, blink });
+    arcade.display.set(main, blink);
+    arcade.display.setSub(sub);
+  }
 
   // ---- simulation and progress ----
   let progress = loadProgress();
@@ -68,8 +78,23 @@ export function createPawsGame({ stage }, handlers = {}) {
   let drawnValue = -1;
   const pickRnd = mulberry32((handlers.seed ?? Date.now()) ^ 0x9e3779b9);
   arcade.setUnlocked(progress.unlocked);
-  arcade.display.set(pad4(0));
-  arcade.display.setSub('PRESS TO START');
+  show(led.main);
+
+  // A skin recolours everything, so the arcade is rebuilt in the new palette.
+  function setSkin(id) {
+    if (skinOf(id) === palette.mode) return;
+    palette = paletteFor(id);
+    scene.background.set(palette.room);
+    scene.fog.color.set(palette.room);
+    hemi.color.set(palette.light);
+    hemi.groundColor.set(palette.lightGround);
+    key.color.set(palette.light);
+    sun.color.set(palette.light);
+    arcade.dispose();
+    arcade = buildArcade(scene, palette);
+    arcade.setUnlocked(progress.unlocked);
+    show(led.main, led.blink);
+  }
 
   function onResult(result) {
     cooldown = COOLDOWN;
@@ -82,8 +107,7 @@ export function createPawsGame({ stage }, handlers = {}) {
       sim.setLevel(progress.unlocked.length);
       arcade.setUnlocked(progress.unlocked);
       arcade.celebrate(bear?.id, { confetti: !reduceMotion });
-      arcade.display.set(String(TARGET), true);
-      arcade.display.setSub(bear ? `WINNER  ${bear.name.toUpperCase()}` : 'WINNER  SHELF FULL');
+      show(String(TARGET), true, bear ? `WINNER  ${bear.name.toUpperCase()}` : 'WINNER  SHELF FULL');
       sfx.win();
       if (bear && activeView) setView('shelf');
     } else {
@@ -91,8 +115,7 @@ export function createPawsGame({ stage }, handlers = {}) {
         const off = Math.abs(result.diff);
         progress.closest = progress.closest === null ? off : Math.min(progress.closest, off);
       }
-      arcade.display.set(pad4(result.value), true);
-      arcade.display.setSub(result.reason === 'timeout' ? 'TOO LATE' : `${Math.abs(result.diff)} ${result.diff < 0 ? 'SHORT' : 'OVER'}`);
+      show(pad4(result.value), true, result.reason === 'timeout' ? 'TOO LATE' : `${Math.abs(result.diff)} ${result.diff < 0 ? 'SHORT' : 'OVER'}`);
       sfx.miss();
     }
     saveProgress(progress);
@@ -198,7 +221,7 @@ export function createPawsGame({ stage }, handlers = {}) {
     const state = sim.getState();
     if (state.phase === 'running' && state.value !== drawnValue) {
       drawnValue = state.value;
-      arcade.display.set(pad4(state.value));
+      show(pad4(state.value));
       if (sinceTick >= TICK_GAP) { sinceTick = 0; sfx.tick(Math.min(1, state.value / TARGET)); }
     }
     arcade.update(dt, state);
@@ -254,12 +277,12 @@ export function createPawsGame({ stage }, handlers = {}) {
       if (cooldown > 0) return;
       drawnValue = -1;
       sim.start();
-      arcade.display.set(pad4(0));
-      arcade.display.setSub('STOP AT 1000');
+      show(pad4(0), false, 'STOP AT 1000');
       sfx.start();
       if (activeView === 'shelf') setView('play');
     },
     setView,
+    setSkin,
     setMuted(m) { sfx.setMuted(m); },
     unlockAudio() { sfx.unlock(); },
     resetProgress() {
