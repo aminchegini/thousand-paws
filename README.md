@@ -70,4 +70,10 @@ This repository is the subject of a Figma-to-code token pipeline, and it starts 
 - Plush Grab keeps its colours as hex values in `src/game/skins.js` and under its own names (`--pink`, `--trim`, `--mint`) in `src/styles.css`. That is how it was really built.
 - Thousand Paws was then written the way a second team would: stock Tailwind colours, its own names (`--brand-candy`, `--btn-red`, `--shelf-wood`) and hex values in `src/game/palette.js`. That part is staged for the demonstration.
 
-The migration to shared tokens happens in later pull requests.
+The migration to shared tokens happens in later pull requests. To see how far it has come:
+
+```bash
+pnpm tokens:report
+```
+
+That prints, for Thousand Paws, how many colour references come from the shared tokens and how many are still raw colour values, stock Tailwind classes or deprecated legacy names, and writes the result to `metrics/token-parity.json`. `pnpm tokens:check` does the same and fails while anything is left.

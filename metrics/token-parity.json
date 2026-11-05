@@ -1,0 +1,50 @@
+{
+  "parity": 0,
+  "apps": [
+    {
+      "app": "thousand-paws",
+      "semantic": 0,
+      "rawColour": 75,
+      "stockTailwind": 33,
+      "legacy": 9,
+      "notFromTokens": 117,
+      "parity": 0,
+      "legacyByName": {
+        "brand-candy": 2,
+        "btn-red": 2,
+        "btn-red-deep": 3,
+        "shelf-wood": 2
+      },
+      "files": [
+        {
+          "file": "apps/thousand-paws/src/game/palette.js",
+          "notFromTokens": 36
+        },
+        {
+          "file": "apps/thousand-paws/src/components/ThousandPaws.jsx",
+          "notFromTokens": 26
+        },
+        {
+          "file": "apps/thousand-paws/src/game/spec.js",
+          "notFromTokens": 24
+        },
+        {
+          "file": "apps/thousand-paws/src/components/BearShelf.jsx",
+          "notFromTokens": 7
+        },
+        {
+          "file": "apps/thousand-paws/src/components/BearFace.jsx",
+          "notFromTokens": 6
+        },
+        {
+          "file": "apps/thousand-paws/src/styles.css",
+          "notFromTokens": 5
+        },
+        {
+          "file": "apps/thousand-paws/src/game/engine.js",
+          "notFromTokens": 4
+        }
+      ]
+    }
+  ]
+}
