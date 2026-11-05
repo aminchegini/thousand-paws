@@ -1,0 +1,16 @@
+Thousand Paws and Plush Grab
+
+Required Notice: Copyright (c) 2026 Amin Chegini (https://github.com/aminchegini)
+
+Licensed under the PolyForm Noncommercial License 1.0.0. See LICENSE.
+Commercial use requires written permission from Amin Chegini. See COMMERCIAL.md.
+
+Third-party software and fonts, each under its own licence:
+
+- three.js (MIT), https://github.com/mrdoob/three.js
+- React and React DOM (MIT), https://github.com/facebook/react
+- Tailwind CSS (MIT), https://github.com/tailwindlabs/tailwindcss
+- Vite (MIT), https://github.com/vitejs/vite
+- Bungee, Nunito, VT323, Monoton, Pacifico and Playfair Display typefaces
+  (SIL Open Font License 1.1), loaded from Google Fonts and not included in
+  this repository
