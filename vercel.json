@@ -1,0 +1,6 @@
+{
+  "framework": null,
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm --filter thousand-paws build",
+  "outputDirectory": "apps/thousand-paws/dist"
+}
