@@ -6,7 +6,6 @@
   "packageManager": "pnpm@10.13.1",
   "scripts": {
     "dev": "pnpm --filter thousand-paws dev",
-    "dev:plush": "pnpm --filter plush-grab dev",
     "build": "pnpm -r --if-present build",
     "test": "pnpm -r --if-present test",
     "test:e2e": "playwright test",
