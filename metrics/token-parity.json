@@ -1,0 +1,114 @@
+{
+  "parity": 0,
+  "apps": [
+    {
+      "app": "thousand-paws",
+      "semantic": 0,
+      "rawColour": 75,
+      "stockTailwind": 33,
+      "legacy": 9,
+      "notFromTokens": 117,
+      "parity": 0,
+      "legacyByName": {
+        "brand-candy": 2,
+        "btn-red": 2,
+        "btn-red-deep": 3,
+        "shelf-wood": 2
+      },
+      "files": [
+        {
+          "file": "apps/thousand-paws/src/game/palette.js",
+          "notFromTokens": 36
+        },
+        {
+          "file": "apps/thousand-paws/src/components/ThousandPaws.jsx",
+          "notFromTokens": 26
+        },
+        {
+          "file": "apps/thousand-paws/src/game/spec.js",
+          "notFromTokens": 24
+        },
+        {
+          "file": "apps/thousand-paws/src/components/BearShelf.jsx",
+          "notFromTokens": 7
+        },
+        {
+          "file": "apps/thousand-paws/src/components/BearFace.jsx",
+          "notFromTokens": 6
+        },
+        {
+          "file": "apps/thousand-paws/src/styles.css",
+          "notFromTokens": 5
+        },
+        {
+          "file": "apps/thousand-paws/src/game/engine.js",
+          "notFromTokens": 4
+        }
+      ]
+    },
+    {
+      "app": "plush-grab",
+      "semantic": 0,
+      "rawColour": 373,
+      "stockTailwind": 0,
+      "legacy": 61,
+      "notFromTokens": 434,
+      "parity": 0,
+      "legacyByName": {
+        "bg": 2,
+        "card": 2,
+        "cream": 7,
+        "drop": 2,
+        "drop-deep": 4,
+        "led": 2,
+        "line": 8,
+        "mint": 7,
+        "mint-deep": 5,
+        "muted": 8,
+        "panel": 2,
+        "pink": 1,
+        "plum": 6,
+        "trim": 3,
+        "trim-deep": 2
+      },
+      "files": [
+        {
+          "file": "apps/plush-grab/src/game/skins.js",
+          "notFromTokens": 229
+        },
+        {
+          "file": "apps/plush-grab/src/game/device.js",
+          "notFromTokens": 62
+        },
+        {
+          "file": "apps/plush-grab/src/game/plush.js",
+          "notFromTokens": 30
+        },
+        {
+          "file": "apps/plush-grab/src/styles.css",
+          "notFromTokens": 27
+        },
+        {
+          "file": "apps/plush-grab/src/game/scene.js",
+          "notFromTokens": 9
+        },
+        {
+          "file": "apps/plush-grab/src/game/capsules.js",
+          "notFromTokens": 6
+        },
+        {
+          "file": "apps/plush-grab/src/game/engine.js",
+          "notFromTokens": 5
+        },
+        {
+          "file": "apps/plush-grab/src/game/capsuleView.js",
+          "notFromTokens": 3
+        },
+        {
+          "file": "apps/plush-grab/src/components/PrizeThumb.jsx",
+          "notFromTokens": 2
+        }
+      ]
+    }
+  ]
+}
