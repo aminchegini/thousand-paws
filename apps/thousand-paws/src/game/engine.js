@@ -191,7 +191,7 @@ export function createPawsGame({ stage }, handlers = {}) {
   let raf = 0;
   let alive = true;
   let last = performance.now();
-  function tick(dt) {
+  function tick(dt, draw = true) {
     cooldown = Math.max(0, cooldown - dt);
     sinceTick += dt;
     sim.update(dt);
@@ -204,7 +204,7 @@ export function createPawsGame({ stage }, handlers = {}) {
     arcade.update(dt, state);
     stepTween(dt);
     controls.update();
-    renderer.render(scene, camera);
+    if (draw) renderer.render(scene, camera);
     sim.drawn();   // from here on a press is judged against the number just drawn
   }
   function frame(now) {
@@ -216,10 +216,12 @@ export function createPawsGame({ stage }, handlers = {}) {
   raf = requestAnimationFrame(frame);
 
   // Development only: step the game clock by hand (handy when the tab is in the
-  // background and gets no animation frames). Stripped from production builds.
+  // background and gets no animation frames). Stepped frames are not drawn until the
+  // last one, so a long step stays fast. Stripped from production builds.
   if (import.meta.env.DEV) {
+    const settle = () => { renderer.render(scene, camera); last = performance.now(); };
     window.__thousandPaws = {
-      advance(seconds) { for (let i = 0, n = Math.round(seconds * 60); i < n; i++) tick(1 / 60); last = performance.now(); },
+      advance(seconds) { for (let i = 0, n = Math.round(seconds * 60); i < n; i++) tick(1 / 60, false); settle(); },
       // Steps a running round until the screen shows `value`. Only numbers from the
       // run-in onward are certain to be shown.
       runTo(value) {
@@ -227,9 +229,9 @@ export function createPawsGame({ stage }, handlers = {}) {
         for (let i = 0; i < 60 * 120; i++) {
           const s = sim.getState();
           if (s.phase !== 'running' || s.shown === value) break;
-          tick(1 / 60);
+          tick(1 / 60, false);
         }
-        last = performance.now();
+        settle();
         return sim.getState();
       },
       state() { return { ...sim.getState(), progress }; },
