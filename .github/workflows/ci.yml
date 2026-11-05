@@ -20,7 +20,7 @@ jobs:
         run: pnpm tokens:check
       - name: Unit tests
         run: pnpm test
-      - name: Build both cabinets
+      - name: Build
         run: pnpm build
       - name: Install the browser for end-to-end tests
         run: pnpm exec playwright install --with-deps chromium

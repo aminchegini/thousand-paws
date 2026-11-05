@@ -1,9 +1,6 @@
 # Thousand Paws
 
-A small 3D arcade with two cabinets, built with React, Vite and Three.js.
-
-- **Thousand Paws.** A counter races upward, speeding up and slowing down at random. Press the big red button when it reads exactly 1000 and one of the eight teddy bears on the shelf beside you unlocks.
-- **Plush Grab.** A full-size claw machine with a capsule bay that pays out on every play.
+A small 3D arcade game built with React, Vite and Three.js. A counter races upward, speeding up and slowing down at random. Press the big red button when it reads exactly 1000 and one of the eight teddy bears on the shelf beside you unlocks.
 
 ## Licence
 
@@ -21,11 +18,7 @@ pnpm install
 pnpm dev
 ```
 
-That starts Thousand Paws on http://localhost:5183. For Plush Grab on http://localhost:5184:
-
-```bash
-pnpm dev:plush
-```
+That starts the game on http://localhost:5183.
 
 Tests and production builds:
 
@@ -37,7 +30,7 @@ pnpm test
 pnpm build
 ```
 
-## How Thousand Paws plays
+## How it plays
 
 - Press the red button on the cabinet, the Start button in the side panel, or Space. The counter starts at 0.
 - Its speed changes every 0.3 to 1.2 seconds: crawl, medium or sprint. From 985 on it only uses slow speeds.
@@ -54,22 +47,18 @@ Every number above is a constant in [`apps/thousand-paws/src/game/spec.js`](apps
 | Path | What it is |
 |---|---|
 | `apps/thousand-paws` | The counter game. `src/game/counter.js` is the headless simulation, `arcade.js` the 3D model, `engine.js` the loop, camera and input. |
-| `apps/plush-grab` | The claw machine. See its [README](apps/plush-grab/README.md). |
-| `packages/arcade-kit` | What both cabinets share: Three.js helpers, the LED display, the tone engine and the teddy bear model. |
+| `packages/arcade-kit` | Reusable parts: Three.js helpers, the LED display, the tone engine and the teddy bear model. |
 
-Add `?seed=123` to the Thousand Paws address to replay the same rounds. In development, `window.__thousandPaws` can step the game clock by hand, which the tests use to stop the counter on an exact number.
+Add `?seed=123` to the address to replay the same rounds. In development, `window.__thousandPaws` can step the game clock by hand, which the tests use to stop the counter on an exact number.
 
-## Design tokens: the starting point
+## Design tokens
 
-This repository is the subject of a Figma-to-code token pipeline, and it starts out on purpose in the state that pipeline is meant to fix:
+Every colour, radius and type size comes from [pawprint-tokens](https://github.com/aminchegini/pawprint-tokens), which is exported from a Figma library. The four cabinet finishes (Candy, Neon, Diner, Walnut) are the modes of that library's Semantic variable collection.
 
-- Plush Grab keeps its colours as hex values in `src/game/skins.js` and under its own names (`--pink`, `--trim`, `--mint`) in `src/styles.css`. That is how it was really built.
-- Thousand Paws was then written the way a second team would: stock Tailwind colours, its own names (`--brand-candy`, `--btn-red`, `--shelf-wood`) and hex values in `src/game/palette.js`. That part is staged for the demonstration.
-
-The migration to shared tokens happens in later pull requests. To see how far it has come:
+The game was first written the way a separate team might have: stock Tailwind colours, its own names (`--brand-candy`, `--btn-red`, `--shelf-wood`) and hex values in the palette. That starting state was staged for the demonstration, and [pull request #3](https://github.com/aminchegini/thousand-paws/pull/3) moved it onto the tokens.
 
 ```bash
 pnpm tokens:report
 ```
 
-That prints, for Thousand Paws, how many colour references come from the shared tokens and how many are still raw colour values, stock Tailwind classes or deprecated legacy names, and writes the result to `metrics/token-parity.json`. `pnpm tokens:check` does the same and fails while anything is left.
+That prints how many colour references come from the shared tokens and how many are raw colour values, stock Tailwind classes or deprecated legacy names, and writes the result to `metrics/token-parity.json`. `pnpm tokens:check` does the same and fails while anything is left. CI runs the check.

@@ -10,6 +10,6 @@ Third-party software and fonts, each under its own licence:
 - React and React DOM (MIT), https://github.com/facebook/react
 - Tailwind CSS (MIT), https://github.com/tailwindlabs/tailwindcss
 - Vite (MIT), https://github.com/vitejs/vite
-- Bungee, Nunito, VT323, Monoton, Pacifico and Playfair Display typefaces
+- Bungee, Nunito and VT323 typefaces
   (SIL Open Font License 1.1), loaded from Google Fonts and not included in
   this repository
