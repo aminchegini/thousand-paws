@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@paws/arcade-kit": "workspace:*",
-    "@paws/tokens": "https://github.com/aminchegini/pawprint-tokens/releases/download/v0.3.0/paws-tokens-0.3.0.tgz",
-    "@paws/ui": "https://github.com/aminchegini/pawprint-tokens/releases/download/v0.3.0/paws-ui-0.3.0.tgz",
+    "@paws/tokens": "https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-tokens-0.4.0.tgz",
+    "@paws/ui": "https://github.com/aminchegini/pawprint-tokens/releases/download/v0.4.0/paws-ui-0.4.0.tgz",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "three": "^0.187.0"
