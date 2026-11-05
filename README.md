@@ -5,13 +5,9 @@ A small 3D arcade with two cabinets, built with React, Vite and Three.js.
 - **Thousand Paws.** A counter races upward, speeding up and slowing down at random. Press the big red button when it reads exactly 1000 and one of the eight teddy bears on the shelf beside you unlocks.
 - **Plush Grab.** A full-size claw machine with a capsule bay that pays out on every play.
 
-## Licence: free to use, not for commercial use
+## Licence
 
-This project is **source-available**. You may read, run, change and share it for noncommercial purposes under the [PolyForm Noncommercial License 1.0.0](LICENSE).
-
-**Commercial use is not allowed without written permission from Amin Chegini.** [COMMERCIAL.md](COMMERCIAL.md) says what counts as commercial use and how to ask.
-
-Because of that restriction this is not "open source" as the Open Source Initiative defines it. The token pipeline it is paired with, [pawprint-tokens](https://github.com/aminchegini/pawprint-tokens), is MIT licensed.
+[MIT](LICENSE). Use it for anything, including commercial projects, as long as you keep the copyright and licence notice. The token pipeline it is paired with, [pawprint-tokens](https://github.com/aminchegini/pawprint-tokens), is MIT licensed too.
 
 ## Run it
 
