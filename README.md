@@ -11,7 +11,7 @@ This project is **source-available**. You may read, run, change and share it for
 
 **Commercial use is not allowed without written permission from Amin Chegini.** [COMMERCIAL.md](COMMERCIAL.md) says what counts as commercial use and how to ask.
 
-Because of that restriction this is not "open source" as the Open Source Initiative defines it. The token pipeline it is paired with, [figma-token-pipeline](https://github.com/aminchegini/figma-token-pipeline), is MIT licensed.
+Because of that restriction this is not "open source" as the Open Source Initiative defines it. The token pipeline it is paired with, [pawprint-tokens](https://github.com/aminchegini/pawprint-tokens), is MIT licensed.
 
 ## Run it
 

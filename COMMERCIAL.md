@@ -18,4 +18,4 @@ Open an issue titled "Commercial licence request" at <https://github.com/aminche
 
 ## Not covered by this file
 
-The token pipeline that feeds these games lives in a separate repository, <https://github.com/aminchegini/figma-token-pipeline>, under the MIT licence. You may use that one commercially.
+The token pipeline that feeds these games lives in a separate repository, <https://github.com/aminchegini/pawprint-tokens>, under the MIT licence. You may use that one commercially.
