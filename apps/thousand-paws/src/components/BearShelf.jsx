@@ -3,7 +3,7 @@ import BearFace from './BearFace.jsx';
 
 export default function BearShelf({ unlocked }) {
   return (
-    <section className="rounded-2xl border border-[var(--shelf-wood)] bg-violet-900/60 p-3.5">
+    <section className="rounded-2xl border border-[var(--color-surface-shelf)] bg-violet-900/60 p-3.5">
       <h2 className="m-0 mb-2.5 flex items-baseline justify-between font-display text-sm font-normal tracking-wide text-amber-300">
         Your shelf
         <span className="font-body text-xs font-bold text-violet-300">{unlocked.length} of {BEARS.length}</span>

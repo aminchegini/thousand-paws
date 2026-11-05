@@ -123,7 +123,7 @@ export default function ThousandPaws() {
           type="button"
           data-role="press"
           onClick={press}
-          className="rounded-2xl border-0 bg-[var(--btn-red)] px-4 py-4 font-display text-2xl tracking-wide text-white shadow-[0_6px_0_var(--btn-red-deep)] active:translate-y-1 active:shadow-[0_2px_0_var(--btn-red-deep)]"
+          className="rounded-2xl border-0 bg-[var(--color-action-primary)] px-4 py-4 font-display text-2xl tracking-wide text-white shadow-[0_6px_0_var(--color-action-primary-pressed)] active:translate-y-1 active:shadow-[0_2px_0_var(--color-action-primary-pressed)]"
         >
           {BUTTON_LABEL[phase]}
         </button>
@@ -141,7 +141,7 @@ export default function ThousandPaws() {
             </div>
             <div>
               <dt className="text-[11px] font-bold tracking-wider text-violet-300 uppercase">Closest miss</dt>
-              <dd className="m-0 font-display text-xl text-[var(--brand-candy)] tabular-nums">{progress.closest === null ? '–' : progress.closest}</dd>
+              <dd className="m-0 font-display text-xl text-[var(--color-cabinet-body)] tabular-nums">{progress.closest === null ? '–' : progress.closest}</dd>
             </div>
           </dl>
         </section>

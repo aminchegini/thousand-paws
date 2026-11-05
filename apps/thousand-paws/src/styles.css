@@ -8,10 +8,10 @@
 }
 
 :root {
-  --brand-candy: #ff3f94;
-  --btn-red: #ff2d20;
-  --btn-red-deep: #b3160e;
-  --shelf-wood: #8a5a34;
+  --color-cabinet-body: #ff3f94;
+  --color-action-primary: #ff2d20;
+  --color-action-primary-pressed: #b3160e;
+  --color-surface-shelf: #8a5a34;
   color-scheme: dark;
 }
 
