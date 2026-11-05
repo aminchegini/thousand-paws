@@ -7,7 +7,7 @@ import { sphere, std } from './three.js';
 const INK = 0x2a0f3a;
 const LOCKED = { fur: 0x8a8794, belly: 0xb9b6c2, bow: 0x6f6c7a };
 
-export function makeTeddy({ fur, belly, bow, metalness = 0 }) {
+export function makeTeddy({ fur, belly, bow, metalness = 0, locked = LOCKED }) {
   const colors = { fur, belly, bow };
   const furMat = std(fur, { roughness: 0.92 - metalness * 0.6, metalness });
   const bellyMat = std(belly, { roughness: 0.92 - metalness * 0.6, metalness });
@@ -40,8 +40,8 @@ export function makeTeddy({ fur, belly, bow, metalness = 0 }) {
   return {
     group,
     // A locked bear keeps its shape but loses its colours.
-    setLocked(locked) {
-      const c = locked ? LOCKED : colors;
+    setLocked(isLocked) {
+      const c = isLocked ? locked : colors;
       furMat.color.set(c.fur); bellyMat.color.set(c.belly); bowMat.color.set(c.bow);
     },
     setColors(next) { Object.assign(colors, next); this.setLocked(false); },

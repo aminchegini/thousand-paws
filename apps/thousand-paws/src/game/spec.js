@@ -18,17 +18,25 @@ export const END_SPEED = { name: 'run-in', min: 6, max: 24 };
 // tight with a full one.
 export const DWELL = { easy: 0.12, hard: 0.05 };
 
-// Fur, belly and bow colours are hex numbers, ready for Three.js materials.
+// Fur and bow colours are semantic token names; the palette turns them into colours.
 export const BEARS = [
-  { id: 'bo', name: 'Bubblegum Bo', fur: 0xff6fb5, belly: 0xffd1e8, bow: 0x2ad4bd },
-  { id: 'marmalade', name: 'Captain Marmalade', fur: 0xff8c2b, belly: 0xffe0b8, bow: 0x3b6cff },
-  { id: 'minty', name: 'Minty McFluff', fur: 0x2ad4bd, belly: 0xd2fff6, bow: 0xff3f94 },
-  { id: 'blitz', name: 'Blueberry Blitz', fur: 0x3f8cff, belly: 0xd6e8ff, bow: 0xffd23f },
-  { id: 'gatsby', name: 'Grape Gatsby', fur: 0x9b5cff, belly: 0xeadcff, bow: 0xffd23f },
-  { id: 'honey', name: 'Sunny Honeycomb', fur: 0xffc933, belly: 0xfff3c4, bow: 0xff5a36 },
-  { id: 'fizz', name: 'Cherry Fizz', fur: 0xff3b4e, belly: 0xffd6da, bow: 0xffffff },
+  { id: 'bo', name: 'Bubblegum Bo', fur: 'color.prize.rose', bow: 'color.prize.mint' },
+  { id: 'marmalade', name: 'Captain Marmalade', fur: 'color.prize.tangerine', bow: 'color.prize.sky' },
+  { id: 'minty', name: 'Minty McFluff', fur: 'color.prize.mint', bow: 'color.prize.rose' },
+  { id: 'blitz', name: 'Blueberry Blitz', fur: 'color.prize.sky', bow: 'color.prize.sun' },
+  { id: 'gatsby', name: 'Grape Gatsby', fur: 'color.prize.grape', bow: 'color.prize.sun' },
+  { id: 'honey', name: 'Sunny Honeycomb', fur: 'color.prize.sun', bow: 'color.prize.cherry' },
+  { id: 'fizz', name: 'Cherry Fizz', fur: 'color.prize.cherry', bow: 'color.text.default' },
   // The gold one only comes off the shelf after every other bear.
-  { id: 'grand', name: 'The Grand', fur: 0xe8b923, belly: 0xfff0b0, bow: 0xc1121f, metalness: 0.55, last: true },
+  { id: 'grand', name: 'The Grand', fur: 'color.prize.gold', bow: 'color.prize.cherry', metalness: 0.55, last: true },
+];
+
+// The cabinet finishes. Each is a mode of the Semantic variable collection in Figma.
+export const SKINS = [
+  { id: 'candy', name: 'Candy Arcade' },
+  { id: 'neon', name: 'Neon Night' },
+  { id: 'diner', name: 'Retro Diner' },
+  { id: 'walnut', name: 'Walnut & Brass' },
 ];
 
 export const bearById = (id) => BEARS.find((b) => b.id === id) || null;

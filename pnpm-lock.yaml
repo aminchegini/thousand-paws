@@ -45,6 +45,9 @@ importers:
       '@paws/arcade-kit':
         specifier: workspace:*
         version: link:../../packages/arcade-kit
+      '@paws/tokens':
+        specifier: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.1.0/paws-tokens-0.1.0.tgz
+        version: https://github.com/aminchegini/pawprint-tokens/releases/download/v0.1.0/paws-tokens-0.1.0.tgz
       react:
         specifier: ^19.1.0
         version: 19.3.1

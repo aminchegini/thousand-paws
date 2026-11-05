@@ -1,11 +1,10 @@
 // The arcade as one Three.js model: the counter cabinet with its LED display and dome
-// button, the bear shelf beside it, and the room they stand in. buildArcade(scene)
-// returns the moving parts and the pointer targets.
+// button, the bear shelf beside it, and the room they stand in. buildArcade(scene, palette)
+// builds it in one skin's colours and returns the moving parts and the pointer targets.
 
 import * as THREE from 'three';
-import { rbox, sphere, std, at, canvasPlane, canvasTexture, label, makeLed, makeTeddy } from '@paws/arcade-kit';
+import { rbox, sphere, std, at, canvasPlane, canvasTexture, label, makeLed, makeTeddy, disposeObject } from '@paws/arcade-kit';
 import { BEARS } from './spec.js';
-import { PALETTE } from './palette.js';
 
 export const CAB_X = -5;
 export const SHELF_X = 5.4;
@@ -17,7 +16,7 @@ const CONFETTI = 160;
 
 const solid = (mesh) => { mesh.castShadow = true; mesh.receiveShadow = true; return mesh; };
 
-function buildRoom(root) {
+function buildRoom(root, PALETTE) {
   const floorTex = canvasTexture(512, 512, (x, w, h) => {
     x.fillStyle = PALETTE.floor; x.fillRect(0, 0, w, h);
     for (let i = 0; i < 90; i++) {
@@ -40,14 +39,14 @@ function buildRoom(root) {
   root.add(floor, wall);
 }
 
-function drawPaw(x, w, h) {
-  x.fillStyle = PALETTE.paw;
+function drawPaw(color, x, w, h) {
+  x.fillStyle = color;
   const pad = (cx, cy, rx, ry) => { x.beginPath(); x.ellipse(cx * w, cy * h, rx * w, ry * h, 0, 0, Math.PI * 2); x.fill(); };
   pad(0.5, 0.64, 0.22, 0.19);
   pad(0.22, 0.38, 0.085, 0.11); pad(0.4, 0.24, 0.085, 0.11); pad(0.6, 0.24, 0.085, 0.11); pad(0.78, 0.38, 0.085, 0.11);
 }
 
-function buildCabinet(hitTargets) {
+function buildCabinet(hitTargets, PALETTE) {
   const group = new THREE.Group(); group.position.x = CAB_X;
   const body = std(PALETTE.body, { roughness: 0.32 });
   const trim = std(PALETTE.trim, { roughness: 0.4 });
@@ -55,7 +54,7 @@ function buildCabinet(hitTargets) {
   const plate = { color: PALETTE.tagText, bg: PALETTE.tagBg };
 
   group.add(solid(at(rbox(6, 7, 4.4, body, 0.25), 0, 3.5, 0)));               // base
-  group.add(at(canvasPlane(3.2, 3.2, drawPaw, { px: 256, transparent: true }).mesh, 0, 3.6, 2.21));
+  group.add(at(canvasPlane(3.2, 3.2, (x, w, h) => drawPaw(PALETTE.paw, x, w, h), { px: 256, transparent: true }).mesh, 0, 3.6, 2.21));
   group.add(solid(at(rbox(6.6, 0.6, 5.2, trim, 0.2), 0, 7.3, 0.3)));          // control deck
   group.add(at(label(3.6, 0.44, 'STOP AT 1000', { ...plate, scale: 0.66 }), 0, 7.3, 2.91));
   group.add(solid(at(rbox(6, 6.4, 1.8, body, 0.25), 0, 10.6, -1.3)));         // display tower
@@ -83,7 +82,7 @@ function buildCabinet(hitTargets) {
   return { group, display, bulbs, cap, buttonMat };
 }
 
-function makeLock() {
+function makeLock(PALETTE) {
   const g = new THREE.Group();
   const gold = std(PALETTE.lock, { roughness: 0.35, metalness: 0.6 });
   const shackle = new THREE.Mesh(new THREE.TorusGeometry(0.15, 0.045, 10, 20, Math.PI), gold);
@@ -92,7 +91,7 @@ function makeLock() {
   return g;
 }
 
-function buildShelf() {
+function buildShelf(PALETTE) {
   const group = new THREE.Group(); group.position.x = SHELF_X;
   const wood = std(PALETTE.wood, { roughness: 0.7 });
   const woodDark = std(PALETTE.woodDark, { roughness: 0.8 });
@@ -103,12 +102,12 @@ function buildShelf() {
   const slots = new Map();
   BEARS.forEach((bear, i) => {
     const x = COLS[i % COLS.length], y = ROWS[Math.floor(i / COLS.length)];
-    const teddy = makeTeddy(bear);
+    const teddy = makeTeddy(PALETTE.bear(bear));
     const yaw = ((i * 7) % 5 - 2) * 0.07;
     teddy.group.scale.setScalar(BEAR_SCALE);
     teddy.group.rotation.y = yaw;
     const slot = new THREE.Group(); slot.position.set(x, y, 0.1);
-    const lock = at(makeLock(), 0, 1.2, 1.02);
+    const lock = at(makeLock(PALETTE), 0, 1.2, 1.02);
     const tag = label(2.1, 0.42, bear.name.toUpperCase(), { color: PALETTE.tagText, bg: PALETTE.tagBg, scale: 0.6 });
     slot.add(teddy.group, lock, at(tag, 0, -0.175, 1.42));
     group.add(slot);
@@ -117,7 +116,7 @@ function buildShelf() {
   return { group, slots };
 }
 
-function makeConfetti(root) {
+function makeConfetti(root, PALETTE) {
   const mesh = new THREE.InstancedMesh(
     new THREE.PlaneGeometry(0.26, 0.16),
     new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, toneMapped: false }),
@@ -161,15 +160,15 @@ function makeConfetti(root) {
   };
 }
 
-export function buildArcade(scene) {
+export function buildArcade(scene, PALETTE) {
   const root = new THREE.Group();
   scene.add(root);
   const hitTargets = [];
-  buildRoom(root);
-  const cabinet = buildCabinet(hitTargets);
-  const shelf = buildShelf();
+  buildRoom(root, PALETTE);
+  const cabinet = buildCabinet(hitTargets, PALETTE);
+  const shelf = buildShelf(PALETTE);
   root.add(cabinet.group, shelf.group);
-  const confetti = makeConfetti(root);
+  const confetti = makeConfetti(root, PALETTE);
 
   let press = 0;
   let clock = 0;
@@ -180,6 +179,8 @@ export function buildArcade(scene) {
     hitTargets,
     display: cabinet.display,
     pressButton() { press = 1; },
+    // Removes the model, so the arcade can be rebuilt in another skin.
+    dispose() { scene.remove(root); disposeObject(root); },
     setUnlocked(ids) {
       for (const [id, s] of shelf.slots) {
         const locked = !ids.includes(id);
