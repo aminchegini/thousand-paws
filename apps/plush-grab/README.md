@@ -6,12 +6,14 @@ Overall size: 90 × 87 × 183 cm (W × D × H). One scene unit is 8 cm; every di
 
 ## Run it
 
+From the repository root:
+
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev:plush
 ```
 
-Then open the URL Vite prints (usually http://localhost:5173).
+Then open http://localhost:5184.
 
 ## The machine
 
