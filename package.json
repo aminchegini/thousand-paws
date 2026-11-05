@@ -1,0 +1,13 @@
+{
+  "name": "thousand-paws-arcade",
+  "private": true,
+  "version": "0.1.0",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "packageManager": "pnpm@10.13.1",
+  "scripts": {
+    "dev": "pnpm --filter thousand-paws dev",
+    "dev:plush": "pnpm --filter plush-grab dev",
+    "build": "pnpm -r --if-present build",
+    "test": "pnpm -r --if-present test"
+  }
+}
