@@ -1,0 +1,25 @@
+// Colours of the 3D arcade.
+
+export const PALETTE = {
+  room: 0x140b2e,
+  floor: '#1c1146',
+  floorDots: ['rgba(42,212,189,.55)', 'rgba(255,79,154,.55)', 'rgba(255,210,63,.5)', 'rgba(140,120,255,.55)'],
+  wall: '#2b1763',
+  wallStripe: 'rgba(255,255,255,0.05)',
+  body: 0xff3f94,
+  trim: 0xffd23f,
+  deck: 0x2a0f3a,
+  button: 0xff2d20,
+  buttonGlow: 0xff2010,
+  wood: 0x8a5a34,
+  woodDark: 0x5e3b20,
+  lock: 0xffd23f,
+  led: '#ff9f1c',
+  ledDim: '#3a2208',
+  tagBg: '#2a0f3a',
+  tagText: '#ffd23f',
+  tagLocked: '#b9acd3',
+  paw: '#ffd23f',
+  bulbs: [0xff6fb5, 0xff8c2b, 0xffc933, 0x2ad4bd, 0x3f8cff, 0x9b5cff, 0xff3b4e],
+  confetti: [0xff3f94, 0xffd23f, 0x2ad4bd, 0x3f8cff, 0x9b5cff, 0xff8c2b, 0xffffff],
+};

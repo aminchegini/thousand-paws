@@ -1,0 +1,21 @@
+/* Layout: the arcade fills the stage on the left; the button, the result and the shelf
+   sit in a side panel. On narrow screens the panel drops below the stage. */
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bungee", "Arial Black", Impact, sans-serif;
+  --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+
+:root {
+  --brand-candy: #ff3f94;
+  --btn-red: #ff2d20;
+  --btn-red-deep: #b3160e;
+  --shelf-wood: #8a5a34;
+  color-scheme: dark;
+}
+
+html, body, #root { height: 100%; }
+body { margin: 0; font-family: var(--font-body); }
+button { font-family: var(--font-body); cursor: pointer; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+button:focus-visible { outline: 3px solid #fff6e8; outline-offset: 2px; }
