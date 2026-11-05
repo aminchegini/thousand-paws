@@ -156,7 +156,7 @@ export default function ThousandPaws() {
             </div>
             <div>
               <dt className="text-[11px] font-bold tracking-wider text-text-muted uppercase">Closest miss</dt>
-              <dd className="m-0 font-display text-lg text-cabinet-body tabular-nums">{progress.closest === null ? '–' : progress.closest}</dd>
+              <dd className="m-0 font-display text-lg text-feedback-miss tabular-nums">{progress.closest === null ? '–' : progress.closest}</dd>
             </div>
           </dl>
         </section>
